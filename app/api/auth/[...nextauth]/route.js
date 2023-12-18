@@ -15,7 +15,9 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_ID,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
-    })
+      redirectUri: process.env.NEXTAUTH_URL + '/api/auth/callback/google',
+    }),
+
   ],
   callbacks: {
     async session({ session }) {
@@ -41,7 +43,7 @@ const handler = NextAuth({
           });
         }
 
-        return true
+        return true;
       } catch (error) {
         console.log("Error checking if user exists: ", error.message);
         return false
